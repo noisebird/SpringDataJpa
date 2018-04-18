@@ -85,4 +85,19 @@ public class EmployeeJPATest {
         assertThat(actualCompanyName).isEqualTo(expectedCompanyName);
     }
 
+    @Test
+    public void should_return_influence_lines_when_update_employee_name() {
+        //6.将xiaohong的名字改成xiaobai,输出这次修改影响的行数
+        Integer expectedLine = 1;
+        Integer actualLine = employeeRepository.modifyNameReturnRows("xiaobai", "xiaohong");
+        assertThat(actualLine).isEqualTo(expectedLine);
+    }
+
+    @Test
+    public void should_deleted_employee_when_given_employee_name() {
+        //7.删除姓名是xiaohong的employee
+        employeeRepository.deleteEmployeeByName("xiaohong");
+        Employee actualEmployee = employeeRepository.findEmployeeByName("xiaohong");
+        assertThat(actualEmployee).isNull();
+    }
 }

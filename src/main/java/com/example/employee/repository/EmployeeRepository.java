@@ -33,5 +33,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     String findCompanyByEmployeeName(@Param("name") String name);
 
     //6.将*的名字改成*,输出这次修改影响的行数
+    @Modifying
+    @Query("update Employee set name=:newName where name =:oldName")
+    Integer modifyNameReturnRows(@Param("newName") String newName,@Param("oldName") String oldName);
+
     //7.删除姓名是*的employee
+    @Modifying
+    @Query("delete from Employee where name=?1")
+    Integer deleteEmployeeByName(String name);
 }
