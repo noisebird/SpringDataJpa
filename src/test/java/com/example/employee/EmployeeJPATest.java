@@ -26,5 +26,26 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = NONE)
 public class EmployeeJPATest {
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Before
+    public void setUp() throws Exception {
+        //本地启动mysql，创建employee_db数据库
+        Flyway flyway = new Flyway();
+        flyway.setDataSource("jdbc:mysql://localhost:3306/employee_db", "root", "root");
+        //清除schema_version中记录所有表结构，视图，存储过程，函数以及所有的数据等都会被清除。
+        flyway.clean();
+        // 此命令会自动检查数据库脚本是否有变化，如果有变化，则执行脚本，更新数据库版本，如果数据库初始状态是空库，
+        // 则会自动创建schema_version 表，用于存储数据库操作的版本记录，
+        flyway.migrate();
+    }
+    @Test
+    public void should_return_employee_when_input_employee_name() {
+        //1.查询名字是小红的employee
+        String actualName = "xiaohong";
+        Employee expectedEmployee = employeeRepository.findEmployeeByName(actualName);
+        assertThat(actualName).isEqualTo(expectedEmployee.getName());
+    }
 
 }
