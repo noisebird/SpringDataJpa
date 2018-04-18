@@ -77,5 +77,12 @@ public class EmployeeJPATest {
         assertThat(EmployeePage.getTotalPages()).isEqualTo(3);
     }
 
+    @Test
+    public void should_return_company_name_when_input_employee_name() {
+        //5.查找xiaohong的所在的公司的公司名称
+        String expectedCompanyName = "alibaba";
+        String actualCompanyName = employeeRepository.findCompanyByEmployeeName("xiaohong");
+        assertThat(actualCompanyName).isEqualTo(expectedCompanyName);
+    }
 
 }

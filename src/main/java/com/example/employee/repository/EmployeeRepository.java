@@ -29,6 +29,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     //4.实现对Employee的分页查询，每页两个数据
     Page<Employee> findAll(Pageable pageable);
     //5.查找**的所在的公司的公司名称
+    @Query("select companyName from Company where id=(select companyId from Employee where name =:name )")
+    String findCompanyByEmployeeName(@Param("name") String name);
+
     //6.将*的名字改成*,输出这次修改影响的行数
     //7.删除姓名是*的employee
 }
