@@ -19,6 +19,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findEmployeeByName(@Param("name") String name);
 
     //2.找出Employee表中第一个姓名包含`*`字符并且薪资大于*的雇员个人信息
+    @Query("select e from Employee e where name like %:name% and salary >:salary")
+    Employee findEmployeeNameContainsValueAndGreaterThanSalary(@Param("name") String name, @Param("salary") int salary);
     //3.找出一个薪资最高且公司ID是*的雇员以及该雇员的姓名
     //4.实现对Employee的分页查询，每页两个数据
     //5.查找**的所在的公司的公司名称

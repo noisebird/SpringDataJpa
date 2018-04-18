@@ -48,4 +48,17 @@ public class EmployeeJPATest {
         assertThat(actualName).isEqualTo(expectedEmployee.getName());
     }
 
+    @Test
+    public void should_return_employee_given_character_in_name_and_salary_large_than() {
+        //2.找出Employee表中第一个姓名包含`n`字符的雇员所有个人信息
+        //此处补充测试：且工资大于6000
+        String actualName = "xiaohong";
+        Employee expectedEmployee = employeeRepository.findEmployeeNameContainsValueAndGreaterThanSalary("n", 6000);
+        assertThat(actualName).isEqualTo(expectedEmployee.getName());
+        System.out.println(expectedEmployee.getName() + ":" + expectedEmployee.getSalary());
+        actualName = "xiaozhi";
+        expectedEmployee = employeeRepository.findEmployeeNameContainsValueAndGreaterThanSalary("x", 7000);
+        assertThat(actualName).isEqualTo(expectedEmployee.getName());
+    }
+
 }
