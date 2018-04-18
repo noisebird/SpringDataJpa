@@ -1,5 +1,7 @@
 package com.example.employee.entity;
 
-public class Employee {
+import javax.persistence.*;
 
+@Entity
+public class Employee {
 }
