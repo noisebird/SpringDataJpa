@@ -45,7 +45,12 @@ public class EmployeeJPATest {
         //1.查询名字是小红的employee
         String actualName = "xiaohong";
         Employee expectedEmployee = employeeRepository.findEmployeeByName(actualName);
+        Employee expectedEmployee1 = employeeRepository.findEmployee(actualName);
+        Employee expectedEmployee2 = employeeRepository.findEmployee(actualName);
         assertThat(actualName).isEqualTo(expectedEmployee.getName());
+        assertThat(actualName).isEqualTo(expectedEmployee1.getName());
+        assertThat(actualName).isEqualTo(expectedEmployee2.getName());
+
     }
 
     @Test

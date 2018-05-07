@@ -15,8 +15,16 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     //以下所有的*都代表变量
     //1.查询名字是*的第一个employee
+//    写法1：
     @Query("select e from Employee e where e.name=:name")
-    Employee findEmployeeByName(@Param("name") String name);
+    Employee findEmployee(@Param("name") String name);
+
+//    写法2：
+    @Query("select e from Employee e where e.name=?1")
+    Employee findEmployee1(String name);
+//    写法3：
+    Employee findEmployeeByName(String name);
+
 
     //2.找出Employee表中第一个姓名包含`*`字符并且薪资大于*的雇员个人信息
     @Query("select e from Employee e where name like %:name% and salary >:salary")
